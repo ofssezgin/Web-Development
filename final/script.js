@@ -364,7 +364,18 @@ function viewLectureDetails() {
 }
 // Function to delete lecture.
 function deleteLecture(index) {
-  lectureList.splice(index, 1);
+  for (let i = 0; i < studentList.length; i++) {
+    let student = studentList[i];
+    if (student.lectureIndex === index) {
+        deleteStudent(i);
+        i--;
+        populateTable();
+    }
+    if (student.lectureIndex > index) {
+        student.lectureIndex--;
+    }
+  }
+  lectureList.splice(index, 1);  
   updateLectureList();
   populateTable(); // Update the table after deleting a lecture
 }
